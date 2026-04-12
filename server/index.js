@@ -25,7 +25,7 @@ app.use(
     cors({
         origin: allowedOrigins,
         credentials: true,
-    })
+    }),
 );
 
 // Static file serving - only for assets, uploads now handled by Cloudinary
@@ -45,6 +45,11 @@ app.use("/api/insurance-quotas", insuranceQuotaRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/otp", otpRoutes);
 
+// Root route
+app.get("/", (req, res) => {
+    res.json({ message: "FinanceFlow API is running" });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -63,3 +68,5 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     console.log(`CORS allowed origins: ${allowedOrigins.join(", ")}`);
 });
+
+module.exports = app;
